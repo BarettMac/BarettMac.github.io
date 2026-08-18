@@ -1,0 +1,5 @@
+<ul class="navlist">
+{% for item in parents.nav %}
+  <li><a href="{{ item.url }}"{% if item.url == page.url %} class="active" aria-current="page"{% endif %}>{{ item.title }}</a></li>
+{% endfor %}
+</ul>

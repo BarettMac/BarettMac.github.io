@@ -1,9 +1,5 @@
 // @ts-check
-const path = require('node:path');
-const { pathToFileURL } = require('node:url');
 const { test, expect } = require('@playwright/test');
-
-const INDEX_URL = pathToFileURL(path.resolve(__dirname, '..', 'index.html')).href;
 
 /** @param {import('@playwright/test').Page} page */
 async function collectConsoleErrors(page) {
@@ -20,7 +16,7 @@ async function tileValue(page, index) {
 test.describe('Retirement withdrawal plan dashboard', () => {
   test('loads with nominal (Actual $) figures by default, no console errors', async ({ page }) => {
     const errors = await collectConsoleErrors(page);
-    await page.goto(INDEX_URL);
+    await page.goto('/parents/');
 
     await expect(page.locator('#tiles .tile')).toHaveCount(4);
     await expect(page.locator('#currencySeg button[data-c="nominal"]')).toHaveClass(/on/);
@@ -39,7 +35,7 @@ test.describe('Retirement withdrawal plan dashboard', () => {
 
   test('switching to Today\'s $ shows inflation-adjusted figures and back again', async ({ page }) => {
     const errors = await collectConsoleErrors(page);
-    await page.goto(INDEX_URL);
+    await page.goto('/parents/');
 
     await page.locator('#currencySeg button[data-c="real"]').click();
     await expect(page.locator('#currencySeg button[data-c="real"]')).toHaveClass(/on/);
@@ -59,7 +55,7 @@ test.describe('Retirement withdrawal plan dashboard', () => {
 
   test('detail and year-range filters re-render without errors', async ({ page }) => {
     const errors = await collectConsoleErrors(page);
-    await page.goto(INDEX_URL);
+    await page.goto('/parents/');
 
     await page.locator('#detailSeg button[data-d="detailed"]').click();
     await expect(page.locator('#lg-acc .lg')).toHaveCount(8); // detailed account series
@@ -68,5 +64,35 @@ test.describe('Retirement withdrawal plan dashboard', () => {
     await expect(page.locator('svg')).toHaveCount(4);
 
     expect(errors).toEqual([]);
+  });
+});
+
+test.describe('Site structure', () => {
+  test('root redirects to /parents/', async ({ page }) => {
+    await page.goto('/');
+    await expect(page).toHaveURL(/\/parents\/$/);
+    await expect(page.locator('#tiles .tile')).toHaveCount(4);
+  });
+
+  test('sidebar nav links between pages and highlights the active one', async ({ page }) => {
+    await page.goto('/parents/');
+    const nav = page.locator('.sidenav .navlist');
+    await expect(nav.locator('a')).toHaveCount(2);
+    await expect(nav.locator('a', { hasText: 'Dashboard' })).toHaveClass(/active/);
+
+    await nav.locator('a', { hasText: 'Plan overview' }).click();
+    await expect(page).toHaveURL(/\/parents\/plan-overview\/$/);
+    await expect(page.locator('h1')).toHaveText('Plan overview');
+    await expect(nav.locator('a', { hasText: 'Plan overview' })).toHaveClass(/active/);
+    await expect(nav.locator('a', { hasText: 'Dashboard' })).not.toHaveClass(/active/);
+  });
+
+  test('dark mode persists across navigation', async ({ page }) => {
+    await page.goto('/parents/');
+    await page.locator('#theme').click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+    await page.locator('.sidenav .navlist a', { hasText: 'Plan overview' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 });

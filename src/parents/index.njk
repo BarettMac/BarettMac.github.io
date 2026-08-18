@@ -1,0 +1,86 @@
+---
+title: "Retirement withdrawal plan"
+---
+<header>
+  <div>
+    <h1>Retirement withdrawal plan</h1>
+    <p class="sub">How the portfolio behaves from 2026 through 2055: what it's worth, what it pays out each year, and what that money is spent on. Hover any chart for exact figures, or open the table beneath it.</p>
+  </div>
+  <button class="btn" id="theme">Dark mode</button>
+</header>
+
+<div class="tiles" id="tiles"></div>
+
+<div class="filters">
+  <div class="fgroup"><span>Currency</span>
+    <div class="seg" id="currencySeg">
+      <button class="btn on" data-c="nominal" title="The actual dollar amounts in each future year">Actual $</button>
+      <button class="btn" data-c="real" title="Inflation-adjusted: what those future dollars would buy in today's purchasing power">Today's $</button>
+    </div>
+  </div>
+  <div class="fgroup"><span>Years</span>
+    <div class="seg" id="rangeSeg"></div>
+  </div>
+  <div class="fgroup"><span>Detail</span>
+    <div class="seg" id="detailSeg">
+      <button class="btn on" data-d="grouped">By account type</button>
+      <button class="btn" data-d="detailed">By individual account</button>
+    </div>
+  </div>
+</div>
+
+<section class="card">
+  <div class="cardhead">
+    <div>
+      <h2>What the portfolio is worth</h2>
+      <p class="desc">Total savings at the end of each year, stacked by where the money sits. The line on top is the combined total.</p>
+    </div>
+    <button class="btn" data-table="acc">Show table</button>
+  </div>
+  <div class="legend" id="lg-acc"></div>
+  <div class="plot" id="plot-acc"><div class="tt" id="tt-acc"></div></div>
+  <div class="tblwrap" id="tbl-acc"></div>
+</section>
+
+<section class="card">
+  <div class="cardhead">
+    <div>
+      <h2>Where each year's money comes from</h2>
+      <p class="desc">Annual withdrawals, coloured by the account they're drawn from. The plan spends non-registered money first, takes the required RRSP minimums, and leaves the tax-free TFSAs for last.</p>
+    </div>
+    <button class="btn" data-table="wd">Show table</button>
+  </div>
+  <div class="legend" id="lg-wd"></div>
+  <div class="plot" id="plot-wd"><div class="tt" id="tt-wd"></div></div>
+  <div class="tblwrap" id="tbl-wd"></div>
+</section>
+
+<section class="card">
+  <div class="cardhead">
+    <div>
+      <h2>How much of the portfolio is used each year</h2>
+      <p class="desc">Withdrawals as a share of the portfolio. A sustainable plan generally sits near or below 4%; the two spikes are the truck in 2028 and the new car in 2034, not a change in lifestyle.</p>
+    </div>
+    <button class="btn" data-table="rate">Show table</button>
+  </div>
+  <div class="plot" id="plot-rate"><div class="tt" id="tt-rate"></div></div>
+  <div class="tblwrap" id="tbl-rate"></div>
+</section>
+
+<section class="card">
+  <div class="cardhead">
+    <div>
+      <h2>What the money is spent on</h2>
+      <p class="desc">Annual spending by category. Everyday living rises steadily with inflation; everything above it is discretionary or one-off.</p>
+    </div>
+    <button class="btn" data-table="exp">Show table</button>
+  </div>
+  <div class="legend" id="lg-exp"></div>
+  <div class="plot" id="plot-exp"><div class="tt" id="tt-exp"></div></div>
+  <div class="tblwrap" id="tbl-exp"></div>
+</section>
+
+<p class="foot" id="footnote">Figures come directly from the ProjectionLab plan export dated 16–17 August 2026. Projections assume the plan's stated return, inflation and tax assumptions hold; actual results will differ. This is an illustration, not advice. The export reports no withdrawal rate for 2046; that one figure (marked *) is calculated as the year's withdrawal over the prior year-end portfolio.</p>
+
+<script id="planData" type="application/json">{{ parents.planData | toJSON | safe }}</script>
+<script src="/assets/js/dashboard.js" defer></script>

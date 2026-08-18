@@ -1,0 +1,4 @@
+{
+  "layout": "layouts/plan.njk",
+  "client": "parents"
+}
