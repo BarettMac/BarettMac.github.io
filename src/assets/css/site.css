@@ -3,18 +3,26 @@ body{margin:0;background:var(--page);color:var(--text-primary);
   font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5}
 
 /* ---------- shell + sidebar nav ---------- */
-.shell{max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:200px 1fr;gap:32px}
-.sidenav{padding:32px 0}
-.navlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;position:sticky;top:24px}
-.navlist a{display:block;padding:8px 12px;border-radius:8px;color:var(--text-secondary);text-decoration:none;font-size:13.5px;white-space:nowrap}
-.navlist a:hover{background:var(--surface-1);color:var(--text-primary)}
-.navlist a.active{background:var(--text-primary);color:var(--surface-1);font-weight:600}
-.wrap{padding:32px 0 72px;min-width:0}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.sidenav{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  background:var(--sidenav-bg);padding:22px 16px;display:flex;flex-direction:column;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;padding:2px 10px;color:var(--sidenav-ink);text-decoration:none}
+.brand .mark{width:32px;height:32px;border-radius:8px;background:var(--s1);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:.02em;flex:none}
+.brand .name{font-size:12.5px;font-weight:650;line-height:1.25;letter-spacing:.01em}
+.brand .name small{display:block;font-weight:400;color:var(--sidenav-ink-muted);font-size:10.5px}
+.navlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.navlist a{display:block;padding:8px 12px;border-radius:8px;color:var(--sidenav-ink-muted);text-decoration:none;font-size:13.5px;white-space:nowrap}
+.navlist a:hover{background:rgba(255,255,255,.06);color:var(--sidenav-ink)}
+.navlist a.active{background:var(--s1);color:#fff;font-weight:600}
+.wrap{max-width:1180px;padding:36px 40px 72px;min-width:0}
 @media (max-width: 760px){
-  .shell{grid-template-columns:1fr;gap:0;padding:0}
-  .sidenav{padding:16px 24px 0}
-  .navlist{position:static;flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-  .wrap{padding:24px 24px 72px}
+  .shell{grid-template-columns:1fr}
+  .sidenav{position:static;height:auto;flex-direction:row;align-items:center;padding:14px 16px;overflow-x:auto}
+  .brand{flex:none}
+  .navlist{flex-direction:row;gap:6px}
+  .navlist a{padding:6px 10px}
+  .wrap{padding:24px 20px 72px}
 }
 
 header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:8px}
@@ -40,8 +48,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .seg .btn{border:0;border-radius:0;padding:6px 13px}
 .seg .btn+.btn{border-left:1px solid var(--border)}
 
-.card{background:var(--surface-1);border:1px solid var(--border);border-radius:14px;
-  padding:22px 22px 16px;margin-bottom:22px;box-shadow:var(--shadow)}
+.card{background:var(--surface-1);border:1px solid var(--border);border-top:3px solid var(--card-accent,var(--s1));
+  border-radius:14px;padding:22px 22px 16px;margin-bottom:22px;box-shadow:var(--shadow)}
 .card h2{font-size:17.5px;font-weight:620;margin:0 0 3px;letter-spacing:-.005em}
 .card .desc{font-size:13.5px;color:var(--text-secondary);margin:0 0 4px;max-width:72ch}
 .cardhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
