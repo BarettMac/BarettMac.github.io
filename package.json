@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "eleventy",
+    "encrypt": "staticrypt _site/parents -r -d _site --remember 1 --short --config false --salt 57a4f94411b511942363d67a56940262",
     "dev": "eleventy --serve",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
@@ -24,6 +25,7 @@
   "homepage": "https://github.com/BarettMac/BarettMac.github.io#readme",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
-    "@playwright/test": "^1.62.1"
+    "@playwright/test": "^1.62.1",
+    "staticrypt": "^3.5.4"
   }
 }

@@ -4,4 +4,6 @@ playwright-report/
 playwright/.cache/
 _site/
 PDFs/
+Excel Files/
+JSON Files/
 desktop.ini

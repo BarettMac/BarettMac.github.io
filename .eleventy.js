@@ -1,6 +1,7 @@
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "static-root/index.html": "index.html" });
+  eleventyConfig.addPassthroughCopy({ "static-root/robots.txt": "robots.txt" });
   eleventyConfig.addFilter("toJSON", (obj) => JSON.stringify(obj));
 
   return {
