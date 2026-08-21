@@ -14,8 +14,8 @@ title: "Retirement withdrawal plan"
 <div class="filters">
   <div class="fgroup"><span>Currency</span>
     <div class="seg" id="currencySeg">
-      <button class="btn on" data-c="nominal" title="The actual dollar amounts in each future year">Actual $</button>
-      <button class="btn" data-c="real" title="Inflation-adjusted: what those future dollars would buy in today's purchasing power">Today's $</button>
+      <button class="btn" data-c="nominal" title="The actual dollar amounts in each future year">Actual $</button>
+      <button class="btn on" data-c="real" title="Inflation-adjusted: what those future dollars would buy in today's purchasing power">Today's $</button>
     </div>
   </div>
   <div class="fgroup"><span>Years</span>
@@ -42,6 +42,19 @@ title: "Retirement withdrawal plan"
   <div class="tblwrap" id="tbl-acc"></div>
 </section>
 
+<section class="card" style="--card-accent:var(--s4)">
+  <div class="cardhead">
+    <div>
+      <h2>What the money is spent on</h2>
+      <p class="desc">Annual spending by category. Everyday living rises steadily with inflation; everything above it is discretionary or one-off.</p>
+    </div>
+    <button class="btn" data-table="exp">Show table</button>
+  </div>
+  <div class="legend" id="lg-exp"></div>
+  <div class="plot" id="plot-exp"><div class="tt" id="tt-exp"></div></div>
+  <div class="tblwrap" id="tbl-exp"></div>
+</section>
+
 <section class="card" style="--card-accent:var(--s2)">
   <div class="cardhead">
     <div>
@@ -65,19 +78,6 @@ title: "Retirement withdrawal plan"
   </div>
   <div class="plot" id="plot-rate"><div class="tt" id="tt-rate"></div></div>
   <div class="tblwrap" id="tbl-rate"></div>
-</section>
-
-<section class="card" style="--card-accent:var(--s4)">
-  <div class="cardhead">
-    <div>
-      <h2>What the money is spent on</h2>
-      <p class="desc">Annual spending by category. Everyday living rises steadily with inflation; everything above it is discretionary or one-off.</p>
-    </div>
-    <button class="btn" data-table="exp">Show table</button>
-  </div>
-  <div class="legend" id="lg-exp"></div>
-  <div class="plot" id="plot-exp"><div class="tt" id="tt-exp"></div></div>
-  <div class="tblwrap" id="tbl-exp"></div>
 </section>
 
 <p class="foot" id="footnote">Figures come directly from the ProjectionLab plan export dated 16–17 August 2026. Projections assume the plan's stated return, inflation and tax assumptions hold; actual results will differ. This is an illustration, not advice. The export reports no withdrawal rate for 2046; that one figure (marked *) is calculated as the year's withdrawal over the prior year-end portfolio.</p>

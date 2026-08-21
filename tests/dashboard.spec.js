@@ -14,41 +14,41 @@ async function tileValue(page, index) {
 }
 
 test.describe('Retirement withdrawal plan dashboard', () => {
-  test('loads with nominal (Actual $) figures by default, no console errors', async ({ page }) => {
+  test('loads with real (Today\'s $) figures by default, no console errors', async ({ page }) => {
     const errors = await collectConsoleErrors(page);
     await page.goto('/parents/');
 
     await expect(page.locator('#tiles .tile')).toHaveCount(4);
-    await expect(page.locator('#currencySeg button[data-c="nominal"]')).toHaveClass(/on/);
-    await expect(page.locator('#currencySeg button[data-c="real"]')).not.toHaveClass(/on/);
+    await expect(page.locator('#currencySeg button[data-c="real"]')).toHaveClass(/on/);
+    await expect(page.locator('#currencySeg button[data-c="nominal"]')).not.toHaveClass(/on/);
 
-    expect(await tileValue(page, 0)).toBe('$968,672');
-    expect(await tileValue(page, 1)).toBe('$1,450,845');
+    expect(await tileValue(page, 0)).toBe('$957,762');
+    expect(await tileValue(page, 1)).toBe('$608,691');
     expect(await tileValue(page, 2)).toBe('4.1%');
-    expect(await tileValue(page, 3)).toBe('$1.51M');
+    expect(await tileValue(page, 3)).toBe('$1.03M');
 
-    await expect(page.locator('#footnote')).toContainText('nominal');
+    await expect(page.locator('#footnote')).toContainText("today's dollars");
     await expect(page.locator('svg')).toHaveCount(4);
 
     expect(errors).toEqual([]);
   });
 
-  test('switching to Today\'s $ shows inflation-adjusted figures and back again', async ({ page }) => {
+  test('switching to Actual $ shows nominal figures and back again', async ({ page }) => {
     const errors = await collectConsoleErrors(page);
     await page.goto('/parents/');
 
-    await page.locator('#currencySeg button[data-c="real"]').click();
-    await expect(page.locator('#currencySeg button[data-c="real"]')).toHaveClass(/on/);
-
-    expect(await tileValue(page, 0)).toBe('$957,762');
-    expect(await tileValue(page, 1)).toBe('$608,691');
-    expect(await tileValue(page, 3)).toBe('$1.03M');
-    await expect(page.locator('#footnote')).toContainText("today's dollars");
-
     await page.locator('#currencySeg button[data-c="nominal"]').click();
     await expect(page.locator('#currencySeg button[data-c="nominal"]')).toHaveClass(/on/);
+
     expect(await tileValue(page, 0)).toBe('$968,672');
+    expect(await tileValue(page, 1)).toBe('$1,450,845');
+    expect(await tileValue(page, 3)).toBe('$1.51M');
     await expect(page.locator('#footnote')).toContainText('nominal');
+
+    await page.locator('#currencySeg button[data-c="real"]').click();
+    await expect(page.locator('#currencySeg button[data-c="real"]')).toHaveClass(/on/);
+    expect(await tileValue(page, 0)).toBe('$957,762');
+    await expect(page.locator('#footnote')).toContainText("today's dollars");
 
     expect(errors).toEqual([]);
   });

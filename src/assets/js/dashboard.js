@@ -20,8 +20,8 @@ function col(i){ return cv(SLOT[i % 8]); }
   d.rateEstimated = d.withdrawalRate.map(function(r,i){ return r<=0 && d.rateComputed[i]>0; });
 });
 
-var D = RAW.nominal;
-var state = { detail:'grouped', currency:'nominal', from:0, to:D.years.length-1, off:{} };
+var D = RAW.real;
+var state = { detail:'grouped', currency:'real', from:0, to:D.years.length-1, off:{} };
 
 var RANGES = [
   {label:'Full plan', a:0, b:D.years.length-1},
